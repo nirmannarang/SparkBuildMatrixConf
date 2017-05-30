@@ -109,8 +109,8 @@ fi
 if [ -d spark ]
 then 
 	cd spark
-    #flag=`git pull`
-    flag=None
+    flag=`git pull`
+    #flag=None
 else
 	git clone --recursive --depth 1 ${GIT_URLL} -b branch-${SPARK_BRANCH}
     cd spark
@@ -140,7 +140,7 @@ echo &quot;------------------------------------------------&quot;
 if [[ $BUILD_WITH_HIVE == &quot;y&quot; || $BUILD_WITH_HIVE == &quot;Y&quot; ]]
 then
   echo &quot; Building with Hive and JDBC Support \n &quot;
-  #build/mvn -Psparkr -Phadoop-${HADOOP_PROFILE} -Dhadoop.version=${HADOOP_VER} -Phive -Phive-thriftserver -Pyarn -DskipTests clean package
+  build/mvn -Psparkr -Phadoop-${HADOOP_PROFILE} -Dhadoop.version=${HADOOP_VER} -Phive -Phive-thriftserver -Pyarn -DskipTests clean package
   build/mvn --fail-never -Pyarn -Phadoop-${HADOOP_PROFILE} -Dhadoop.version=${HADOOP_VER} -Phive -Phive-thriftserver test
 else 
   echo &quot; Building without Hive and JDBC Support \n &quot;
@@ -190,8 +190,8 @@ fi
 if [ -d spark ]
 then 
 	cd spark
-    #flag=`git pull`
-    flag=None
+    flag=`git pull`
+    #flag=None
 else
 	git clone --recursive --depth 1 ${GIT_URLL} -b branch-${SPARK_BRANCH}
     cd spark
@@ -222,7 +222,7 @@ echo &quot;------------------------------------------------&quot;
 if [[ $BUILD_WITH_HIVE == &quot;y&quot; || $BUILD_WITH_HIVE == &quot;Y&quot; ]]
 then
   echo &quot; Building with Hive and JDBC Support \n &quot;
-  #build/mvn -Psparkr -Phadoop-${HADOOP_PROFILE} -Dhadoop.version=${HADOOP_VER} -Phive -Phive-thriftserver -Pyarn -DskipTests clean package
+  build/mvn -Psparkr -Phadoop-${HADOOP_PROFILE} -Dhadoop.version=${HADOOP_VER} -Phive -Phive-thriftserver -Pyarn -DskipTests clean package
   build/mvn --fail-never -Pyarn -Phadoop-${HADOOP_PROFILE} -Dhadoop.version=${HADOOP_VER} -Phive -Phive-thriftserver test
 else 
   echo &quot; Building without Hive and JDBC Support \n &quot;
@@ -273,8 +273,8 @@ fi
 if [ -d spark ]
 then 
 	cd spark
-    #flag=`git pull`
-    flag=None
+    flag=`git pull`
+    #flag=None
 else
 	git clone --recursive --depth 1 ${GIT_URLL} -b branch-${SPARK_BRANCH}
     cd spark
@@ -303,7 +303,7 @@ echo &quot;------------------------------------------------&quot;
 if [[ $BUILD_WITH_HIVE == &quot;y&quot; || $BUILD_WITH_HIVE == &quot;Y&quot; ]]
 then
   echo &quot; Building with Hive and JDBC Support \n &quot;
-  #build/mvn -Psparkr -Phadoop-${HADOOP_PROFILE} -Dhadoop.version=${HADOOP_VER} -Phive -Phive-thriftserver -Pyarn -DskipTests clean package
+  build/mvn -Psparkr -Phadoop-${HADOOP_PROFILE} -Dhadoop.version=${HADOOP_VER} -Phive -Phive-thriftserver -Pyarn -DskipTests clean package
   build/mvn --fail-never -Pyarn -Phadoop-${HADOOP_PROFILE} -Dhadoop.version=${HADOOP_VER} -Phive -Phive-thriftserver test
 else 
   echo &quot; Building without Hive and JDBC Support \n &quot;
@@ -354,8 +354,8 @@ fi
 if [ -d spark ]
 then 
 	cd spark
-    #flag=`git pull`
-    flag=None
+    flag=`git pull`
+    #flag=None
 else
 	git clone --recursive --depth 1 ${GIT_URLL} -b branch-${SPARK_BRANCH}
     cd spark
@@ -384,7 +384,7 @@ echo &quot;------------------------------------------------&quot;
 if [[ $BUILD_WITH_HIVE == &quot;y&quot; || $BUILD_WITH_HIVE == &quot;Y&quot; ]]
 then
   echo &quot; Building with Hive and JDBC Support \n &quot;
-  #build/mvn -Psparkr -Phadoop-${HADOOP_PROFILE} -Dhadoop.version=${HADOOP_VER} -Phive -Phive-thriftserver -Pyarn -DskipTests clean package
+  build/mvn -Psparkr -Phadoop-${HADOOP_PROFILE} -Dhadoop.version=${HADOOP_VER} -Phive -Phive-thriftserver -Pyarn -DskipTests clean package
   build/mvn --fail-never -Pyarn -Phadoop-${HADOOP_PROFILE} -Dhadoop.version=${HADOOP_VER} -Phive -Phive-thriftserver test
 else 
   echo &quot; Building without Hive and JDBC Support \n &quot;
