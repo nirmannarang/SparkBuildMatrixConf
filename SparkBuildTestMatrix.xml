@@ -96,15 +96,21 @@
 echo &quot;------------------------------------------------&quot;
 echo &quot;These commands will be run on: $( uname -a )&quot;
 echo &quot;They are executed by: $( whoami )&quot;
-#exit
 
-sudo kill -9 $(sudo ps -ef | grep zin[c] | awk -F &quot; &quot; &apos;{print $2}&apos;) &amp;&gt;&gt;/dev/null
+
+if [[ $(sudo ps -ef | grep zin[c] | awk -F &quot; &quot; &apos;{print $2}&apos;) ]]; then
+    echo &quot;Killing already running zinc server&quot;
+    sudo kill -9 $(sudo ps -ef | grep zin[c] | awk -F &quot; &quot; &apos;{print $2}&apos;)
+else
+    echo &quot;Zinc server not running already&quot;
+fi
 
 
 if [ -d spark ]
 then 
 	cd spark
-    flag=`git pull`
+    #flag=`git pull`
+    flag=None
 else
 	git clone --recursive --depth 1 ${GIT_URLL} -b branch-${SPARK_BRANCH}
     cd spark
@@ -117,18 +123,24 @@ then
 fi
 
 echo &quot;------------------------------------------------&quot;
-#cd spark
 
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-ppc64el
 export PATH=$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$PATH
 java -version
+
+export SNAPPY_HOME=/usr/lib
+export LEVELDB_HOME=/home/testuser/jenkins/leveldb
+export LEVELDBJNI_HOME=/home/testuser/jenkins/leveldbjni
+export LIBRARY_PATH=${SNAPPY_HOME}
+export C_INCLUDE_PATH=${LIBRARY_PATH}
+export CPLUS_INCLUDE_PATH=${LIBRARY_PATH}
 
 echo &quot;------------------------------------------------&quot;
 
 if [[ $BUILD_WITH_HIVE == &quot;y&quot; || $BUILD_WITH_HIVE == &quot;Y&quot; ]]
 then
   echo &quot; Building with Hive and JDBC Support \n &quot;
-  build/mvn -Psparkr -Phadoop-${HADOOP_PROFILE} -Dhadoop.version=${HADOOP_VER} -Phive -Phive-thriftserver -Pyarn -DskipTests clean package
+  #build/mvn -Psparkr -Phadoop-${HADOOP_PROFILE} -Dhadoop.version=${HADOOP_VER} -Phive -Phive-thriftserver -Pyarn -DskipTests clean package
   build/mvn --fail-never -Pyarn -Phadoop-${HADOOP_PROFILE} -Dhadoop.version=${HADOOP_VER} -Phive -Phive-thriftserver test
 else 
   echo &quot; Building without Hive and JDBC Support \n &quot;
@@ -166,35 +178,51 @@ echo &quot;------------------------------------------------&quot;
 echo &quot;These commands will be run on: $( uname -a )&quot;
 echo &quot;They are executed by: $( whoami )&quot;
 
-sudo kill -9 $(sudo ps -ef | grep zin[c] | awk -F &quot; &quot; &apos;{print $2}&apos;) &amp;&gt;&gt;/dev/null
-exit
+
+if [[ $(sudo ps -ef | grep zin[c] | awk -F &quot; &quot; &apos;{print $2}&apos;) ]]; then
+    echo &quot;Killing already running zinc server&quot;
+    sudo kill -9 $(sudo ps -ef | grep zin[c] | awk -F &quot; &quot; &apos;{print $2}&apos;)
+else
+    echo &quot;Zinc server not running already&quot;
+fi
+
+
 if [ -d spark ]
 then 
 	cd spark
-    flag=`git pull`
+    #flag=`git pull`
+    flag=None
 else
 	git clone --recursive --depth 1 ${GIT_URLL} -b branch-${SPARK_BRANCH}
     cd spark
 fi
+
 
 if [ &quot;$flag&quot; == &quot;Already up-to-date.&quot; ]
 then
 	echo &quot;No new changes pushed to Spark branch $SPARK_BRANCH &quot;
     exit 0
 fi
-#cd spark
+
 echo &quot;------------------------------------------------&quot;
 
 export JAVA_HOME=/home/testuser/IBMJAVA/ibm-java-ppc64le-80
 export PATH=$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$PATH
 java -version
 
+export SNAPPY_HOME=/usr/lib
+export LEVELDB_HOME=/home/testuser/jenkins/leveldb
+export LEVELDBJNI_HOME=/home/testuser/jenkins/leveldbjni
+export LIBRARY_PATH=${SNAPPY_HOME}
+export C_INCLUDE_PATH=${LIBRARY_PATH}
+export CPLUS_INCLUDE_PATH=${LIBRARY_PATH}
+
 echo &quot;------------------------------------------------&quot;
 
 if [[ $BUILD_WITH_HIVE == &quot;y&quot; || $BUILD_WITH_HIVE == &quot;Y&quot; ]]
 then
   echo &quot; Building with Hive and JDBC Support \n &quot;
-  build/mvn -Psparkr -Phadoop-${HADOOP_PROFILE} -Dhadoop.version=${HADOOP_VER} -Phive -Phive-thriftserver -Pyarn -DskipTests clean package
+  #build/mvn -Psparkr -Phadoop-${HADOOP_PROFILE} -Dhadoop.version=${HADOOP_VER} -Phive -Phive-thriftserver -Pyarn -DskipTests clean package
   build/mvn --fail-never -Pyarn -Phadoop-${HADOOP_PROFILE} -Dhadoop.version=${HADOOP_VER} -Phive -Phive-thriftserver test
 else 
   echo &quot; Building without Hive and JDBC Support \n &quot;
@@ -233,12 +261,20 @@ echo &quot;------------------------------------------------&quot;
 echo &quot;These commands will be run on: $( uname -a )&quot;
 echo &quot;They are executed by: $( whoami )&quot;
 
-sudo kill -9 $(sudo ps -ef | grep zin[c] | awk -F &quot; &quot; &apos;{print $2}&apos;) &amp;&gt;&gt;/dev/null
+
+if [[ $(sudo ps -ef | grep zin[c] | awk -F &quot; &quot; &apos;{print $2}&apos;) ]]; then
+    echo &quot;Killing already running zinc server&quot;
+    sudo kill -9 $(sudo ps -ef | grep zin[c] | awk -F &quot; &quot; &apos;{print $2}&apos;)
+else
+    echo &quot;Zinc server not running already&quot;
+fi
+
 
 if [ -d spark ]
 then 
 	cd spark
-    flag=`git pull`
+    #flag=`git pull`
+    flag=None
 else
 	git clone --recursive --depth 1 ${GIT_URLL} -b branch-${SPARK_BRANCH}
     cd spark
@@ -249,18 +285,25 @@ then
 	echo &quot;No new changes pushed to Spark branch $SPARK_BRANCH &quot;
     exit 0
 fi
-#cd spark
+
 echo &quot;------------------------------------------------&quot;
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-ppc64el
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk
 export PATH=$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$PATH
 java -version
+
+export SNAPPY_HOME=/usr/lib64
+export LEVELDB_HOME=/home/testuser/jenkins/leveldb
+export LEVELDBJNI_HOME=/home/testuser/jenkins/leveldbjni
+export LIBRARY_PATH=${SNAPPY_HOME}
+export C_INCLUDE_PATH=${LIBRARY_PATH}
+export CPLUS_INCLUDE_PATH=${LIBRARY_PATH}
 
 echo &quot;------------------------------------------------&quot;
 
 if [[ $BUILD_WITH_HIVE == &quot;y&quot; || $BUILD_WITH_HIVE == &quot;Y&quot; ]]
 then
   echo &quot; Building with Hive and JDBC Support \n &quot;
-  build/mvn -Psparkr -Phadoop-${HADOOP_PROFILE} -Dhadoop.version=${HADOOP_VER} -Phive -Phive-thriftserver -Pyarn -DskipTests clean package
+  #build/mvn -Psparkr -Phadoop-${HADOOP_PROFILE} -Dhadoop.version=${HADOOP_VER} -Phive -Phive-thriftserver -Pyarn -DskipTests clean package
   build/mvn --fail-never -Pyarn -Phadoop-${HADOOP_PROFILE} -Dhadoop.version=${HADOOP_VER} -Phive -Phive-thriftserver test
 else 
   echo &quot; Building without Hive and JDBC Support \n &quot;
@@ -299,12 +342,20 @@ echo &quot;------------------------------------------------&quot;
 echo &quot;These commands will be run on: $( uname -a )&quot;
 echo &quot;They are executed by: $( whoami )&quot;
 
-sudo kill -9 $(sudo ps -ef | grep zin[c] | awk -F &quot; &quot; &apos;{print $2}&apos;) &amp;&gt;&gt;/dev/null
+
+if [[ $(sudo ps -ef | grep zin[c] | awk -F &quot; &quot; &apos;{print $2}&apos;) ]]; then
+    echo &quot;Killing already running zinc server&quot;
+    sudo kill -9 $(sudo ps -ef | grep zin[c] | awk -F &quot; &quot; &apos;{print $2}&apos;)
+else
+    echo &quot;Zinc server not running already&quot;
+fi
+
 
 if [ -d spark ]
 then 
 	cd spark
-    flag=`git pull`
+    #flag=`git pull`
+    flag=None
 else
 	git clone --recursive --depth 1 ${GIT_URLL} -b branch-${SPARK_BRANCH}
     cd spark
@@ -315,18 +366,25 @@ then
 	echo &quot;No new changes pushed to Spark branch $SPARK_BRANCH &quot;
     exit 0
 fi
-#cd spark
+
 echo &quot;------------------------------------------------&quot;
-export JAVA_HOME=/home/jenkins/IBMJAVA/ibm-java-ppc64le-80
+export JAVA_HOME=/home/testuser/IBMJAVA/ibm-java-ppc64-80
 export PATH=$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$PATH
 java -version
+
+export SNAPPY_HOME=/usr/lib64
+export LEVELDB_HOME=/home/testuser/jenkins/leveldb
+export LEVELDBJNI_HOME=/home/testuser/jenkins/leveldbjni
+export LIBRARY_PATH=${SNAPPY_HOME}
+export C_INCLUDE_PATH=${LIBRARY_PATH}
+export CPLUS_INCLUDE_PATH=${LIBRARY_PATH}
 
 echo &quot;------------------------------------------------&quot;
 
 if [[ $BUILD_WITH_HIVE == &quot;y&quot; || $BUILD_WITH_HIVE == &quot;Y&quot; ]]
 then
   echo &quot; Building with Hive and JDBC Support \n &quot;
-  build/mvn -Psparkr -Phadoop-${HADOOP_PROFILE} -Dhadoop.version=${HADOOP_VER} -Phive -Phive-thriftserver -Pyarn -DskipTests clean package
+  #build/mvn -Psparkr -Phadoop-${HADOOP_PROFILE} -Dhadoop.version=${HADOOP_VER} -Phive -Phive-thriftserver -Pyarn -DskipTests clean package
   build/mvn --fail-never -Pyarn -Phadoop-${HADOOP_PROFILE} -Dhadoop.version=${HADOOP_VER} -Phive -Phive-thriftserver test
 else 
   echo &quot; Building without Hive and JDBC Support \n &quot;
